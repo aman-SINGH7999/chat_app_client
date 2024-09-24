@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { IoSearch } from "react-icons/io5";
 import OtherUser from './OtherUser';
 import Logout from '../auth/Logout';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,7 +12,6 @@ const [search, setSearch] = useState("");
 const dispatch = useDispatch();
 const authUser = useSelector((store)=> store.user.authUser)
 const visible = useSelector((store)=>store.message.visible)
-// const selectedUser = useSelector((store)=>store.user.selectedUser);
 const navigate = useNavigate();
 
 
@@ -30,10 +28,13 @@ useEffect(()=>{
     }>
       
       <div onClick={()=>navigate(`/profile/${authUser._id}`)} className='cursor-pointer flex justify-start items-center py-3 mt-4 px-4 bg-blue-400 rounded-md font-semibold hover:bg-blue-500 w-full' >
-        <img src={profilepic} alt="profile pic" className='h-8 border-2 rounded-full mx-2' />
+        <img src={authUser?.image || profilepic} alt="profile pic" className='h-8 w-8 border-2 rounded-full mx-2' />
         <div>
-          <p>{authUser?.email}</p>
-          <p>{authUser?._id}</p>
+          <div className='flex'>
+            <p>{authUser?.firstName || authUser?.email}</p>
+            <p className='mx-1'>{authUser?.lastName}</p>
+          </div>
+          <i>{authUser?.bio || "No Bio"}</i>
         </div>
       </div>
 
@@ -42,9 +43,6 @@ useEffect(()=>{
             setSearch(e.target.value);
             dispatch(setSearchUser(e.target.value));
           }} className="border-2 border-gray-400 rounded-md py-1 px-2 w-full" placeholder='Search..' />
-        {/* <button type='submit' className='bg-gray-400 py-1 px-2 rounded-md mx-2'>
-            <IoSearch  className='text-2xl' />
-        </button> */}
       </form>
       <OtherUser />
       <Logout />

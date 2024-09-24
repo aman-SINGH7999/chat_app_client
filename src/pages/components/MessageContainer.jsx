@@ -50,10 +50,13 @@ export default function MessageContainer() {
               : `hidden`
             }><MdArrowBackIos /></button>
             <div className='flex justify-start items-center mx-2 my-2 bg-gray-400 rounded-md py-3 w-full' >
-              <img src={profilepic} alt="profile pic" className='h-8 border-2 rounded-full mx-2' />
+              <img src={selectedUser?.image || profilepic} alt="profile pic" className='h-8 border-2 rounded-full mx-2' />
               <div>
-                <p>{selectedUser?.email}</p>
-                <p>{selectedUser?._id}</p>
+                <div className='flex'>
+                  <p>{selectedUser?.firstName || selectedUser?.email}</p>
+                  <p className='mx-1'>{selectedUser?.lastName}</p>
+                </div>
+                <i>{selectedUser?.bio || "No Boi"}</i>
               </div>
             </div>
           </div>

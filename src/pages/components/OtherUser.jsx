@@ -46,14 +46,20 @@ export default function OtherUser() {
             {
 
               <div key={user._id} className={ selectedUser?._id === user._id ?`flex justify-start mx-2 bg-gray-200 rounded-md py-2 cursor-pointer` :`flex justify-start mx-2 rounded-md py-2 cursor-pointer hover:bg-blue-300`} onClick={()=>handleClick(user)}>
-                  <img src={profilepic} alt="profile pic" className='h-8 border-2 rounded-full mx-2' />
+                  <img src={user?.image || profilepic} alt="profile pic" className='h-8 w-8 border-2 rounded-full mx-2' />
                   {
                     onlineUsers?.includes(user?._id) 
                     ? <>
-                    <div className='h-3 w-3 bg-green-400 -mx-4 rounded-full'></div> 
-                    <div className='mx-6'><p>{user.email}</p></div>
+                    <div className='h-3 w-3 bg-green-400 -mx-4 rounded-full z-20'></div> 
+                    <div className='mx-6 flex'>
+                      <p>{user?.firstName || user?.email}</p>
+                      <p className='mx-1'>{user?.lastName}</p>
+                    </div>
                     </>
-                    : <div className='mx-1'><p>{user.email}</p></div>
+                    : <div className='mx-1 flex'>
+                    <p>{user?.firstName || user?.email}</p>
+                    <p className='mx-1'>{user?.lastName}</p>
+                  </div>
                   }
              </div>
             }
