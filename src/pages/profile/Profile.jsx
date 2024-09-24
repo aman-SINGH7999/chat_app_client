@@ -34,7 +34,7 @@ const handleSubmit = async (e)=>{
     formData.append("lastName", lastName);
     formData.append("bio", bio);
 
-    console.log(firstName, lastName, image, bio)
+    // console.log(firstName, lastName, image, bio)
     try{
       if(validateProfile()){
         const response = await axios.post(`${process.env.REACT_APP_API_KEY}/api/profile/update-profile`,  formData ,{
@@ -45,7 +45,7 @@ const handleSubmit = async (e)=>{
         setEdit(false)
         toast.success(response?.data?.message)
         dispatch(setAuthUser(response.data.response))
-        console.log("updated profile : ", response)
+        // console.log("updated profile : ", response)
       }else{
         setLoading(false)
         toast.error("All Fields are Required")
@@ -53,7 +53,7 @@ const handleSubmit = async (e)=>{
     }catch(err){
       setLoading(false)
       toast.error(err.response.data.message)
-      console.log("Error in updating profile : ", err)
+      // console.log("Error in updating profile : ", err)
     }
 }
 
