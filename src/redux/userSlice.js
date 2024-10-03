@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    authUser : null,
-    otherUsers : null,  // try [] if its not iterable
-    selectedUser : null,
-    onlineUsers : null, // try [] if its not iterable
+    authUser : "",
+    otherUsers : [],  // try [] if its not iterable
+    selectedUser : "",
+    onlineUsers : [], // try [] if its not iterable
     searchUser : "",
 }
 

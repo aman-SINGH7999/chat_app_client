@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    messages : [null],
+    messages : [],
     visible : false,
 }
 

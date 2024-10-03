@@ -49,7 +49,7 @@ export default function Messages() {
                 return (
                   <>
                   {
-                    (selectedUser?._id === message.sender || selectedUser?._id === message.receiver)
+                    (selectedUser?._id === message?.sender || selectedUser?._id === message?.receiver)
                     ? <div key={message?._id} ref={messagesEndRef} className={ 
                         message?.sender === receiver?._id 
                         ? `bg-gray-400 py-1 px-2 my-2 rounded-md w-fit break-words float-left clear-both` 
