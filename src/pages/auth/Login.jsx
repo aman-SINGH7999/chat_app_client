@@ -1,21 +1,22 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuthUser } from '../../redux/userSlice';
-import { ImSpinner2 } from 'react-icons/im'; // Spinner icon
+import { ImSpinner2 } from 'react-icons/im';
+import { Eye, EyeOff } from 'lucide-react';
 
-export default function Signup() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const validateSignup = () => {
+  const validateLogin = () => {
     if (!email.trim()) {
       toast.error("Email is required");
       return false;
@@ -29,7 +30,7 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateSignup()) return;
+    if (!validateLogin()) return;
 
     setLoading(true);
     try {
@@ -55,33 +56,50 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 px-4">
-      <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md border border-blue-200">
-        <h2 className="text-4xl font-extrabold text-center text-blue-600 mb-8">
-          Welcome Back
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md border border-gray-200">
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+          Login to Your Account
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
           />
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-lg"
-          />
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+
+          <div className="flex justify-between items-center text-sm">
+            <Link to="/auth/forgot-password" className="text-blue-600 hover:underline">
+              Forgot password?
+            </Link>
+          </div>
 
           <button
             type="submit"
             disabled={loading}
             className={`w-full py-3 flex justify-center items-center gap-2 ${
               loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
-            } text-white rounded-xl font-semibold text-lg transition duration-200`}
+            } text-white rounded-md font-medium text-lg transition duration-200`}
           >
             {loading ? (
               <>
@@ -94,8 +112,8 @@ export default function Signup() {
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-6">
-          Don't have an account?{' '}
-          <Link to="/auth/signup" className="text-blue-700 hover:underline font-medium">
+          Don’t have an account?{' '}
+          <Link to="/auth/signup" className="text-blue-600 hover:underline font-medium">
             Sign Up
           </Link>
         </p>
